@@ -183,7 +183,7 @@ Built with open-source libraries and tools: EasyOCR, OpenCV, pdf2image, PyQt5, n
 
 ---
 
-## Contact
+## Contact 
 
 Maintainer: imovsesyan
 Repository: https://github.com/imovsesyan/Gluendo-ADR-Extractor
