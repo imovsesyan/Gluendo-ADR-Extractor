@@ -1,0 +1,73 @@
+1) Install Python 3.11.7
+Download and install Python 3.11.7 from the official site. Make sure to check “Add Python to PATH” during setup.
+
+2) Install Visual C++ Build Tools
+Detectron2 requires the MSVC compiler. Download and install the “Build Tools for Visual Studio” (select the “C++ build tools” workload) from Microsoft:
+https://visualstudio.microsoft.com/visual-cpp-build-tools/
+
+3) Create and activate a virtual environment
+
+py -3.11 -m venv detectron2_env
+detectron2_env\Scripts\activate
+
+This keeps your Detectron2 installation isolated.
+
+4) Upgrade pip, setuptools, and wheel
+
+pip install -U pip setuptools wheel
+
+Ensures you have the latest build tooling.
+
+5) Pin NumPy to 1.26.4
+
+pip install numpy==1.26.4
+
+Detectron2’s current codebase works best with this version.
+
+6) Install PyTorch (CPU-only)
+
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu      <---- es mekna qony !!!!
+
+!!!! If you have a CUDA-enabled GPU and want GPU support, skip this and instead run (for CUDA 12.1): (du chunes cpu qashi)
+
+pip install torch==2.2.0+cu121 torchvision==0.17.0+cu121 torchaudio==2.2.0+cu121 -f https://download.pytorch.org/whl/torch_stable.html
+
+7) Install COCO tools and Cython
+
+pip install pycocotools
+pip install cython
+
+These are needed for building some of Detectron2’s C extensions.
+
+8) Clone the Detectron2 repository !!!!( es meky arden clone arac google drive-um kuxarkem) !!!!
+
+git clone https://github.com/facebookresearch/detectron2.git
+cd detectron2
+
+9) Add a pyproject.toml for editable builds  !!!!(es meky arden araca anci araj)!!!!!
+Inside the freshly cloned detectron2/ folder, create a file named pyproject.toml with:
+
+[build-system]
+requires = ["setuptools>=64", "wheel", "torch"]
+build-backend = "setuptools.build_meta"
+
+This lets you install Detectron2 in editable mode without build errors.
+
+10) Install Detectron2 in editable mode
+From within the detectron2/ directory, run either:
+
+python -m pip install -e .
+
+or, if you run into PEP 517 issues:
+
+python -m pip install -e . --use-pep517 --config-settings editable_mode=compat    !!!!( es es toxov em qashel)!!!!
+
+This builds and links Detectron2 so that any code changes take effect immediately.
+
+11) Verify the installation
+In Python:
+
+>>> import detectron2
+>>> from detectron2.engine import DefaultPredictor
+
+If no errors appear, you’re all set!
